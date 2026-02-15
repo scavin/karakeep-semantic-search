@@ -6,29 +6,28 @@ Search your Karakeep bookmarks by meaning, not just keywords.
 
 Set the environment variables:
 ```
-KARAKEEP_SEMANTIC_URL=http://192.168.1.105:3001
-KARAKEEP_SEMANTIC_API_KEY=your-api-key
+KARAKEEP_SEMANTIC_URL=https://semantic.yourdomain.com
+KARAKEEP_SEMANTIC_USER=username
+KARAKEEP_SEMANTIC_PASS=password
 ```
-
-Note: `KARAKEEP_SEMANTIC_API_KEY` is only needed if the server has `API_KEY` configured.
 
 ## Usage
 
 ### Search bookmarks
 ```bash
-curl -s -H "Authorization: Bearer ${KARAKEEP_SEMANTIC_API_KEY}" "${KARAKEEP_SEMANTIC_URL}/search?q=<query>&limit=<n>" | jq
+curl -s -u "${KARAKEEP_SEMANTIC_USER}:${KARAKEEP_SEMANTIC_PASS}" "${KARAKEEP_SEMANTIC_URL}/search?q=<query>&limit=<n>" | jq
 ```
 
 ### Examples
 ```bash
 # Find articles about building startups
-curl -s -H "Authorization: Bearer ${KARAKEEP_SEMANTIC_API_KEY}" "${KARAKEEP_SEMANTIC_URL}/search?q=how+to+build+a+startup&limit=5" | jq
+curl -s -u "${KARAKEEP_SEMANTIC_USER}:${KARAKEEP_SEMANTIC_PASS}" "${KARAKEEP_SEMANTIC_URL}/search?q=how+to+build+a+startup&limit=5" | jq
 
 # Find productivity content
-curl -s -H "Authorization: Bearer ${KARAKEEP_SEMANTIC_API_KEY}" "${KARAKEEP_SEMANTIC_URL}/search?q=getting+things+done&limit=5" | jq
+curl -s -u "${KARAKEEP_SEMANTIC_USER}:${KARAKEEP_SEMANTIC_PASS}" "${KARAKEEP_SEMANTIC_URL}/search?q=getting+things+done&limit=5" | jq
 
 # Find something you vaguely remember
-curl -s -H "Authorization: Bearer ${KARAKEEP_SEMANTIC_API_KEY}" "${KARAKEEP_SEMANTIC_URL}/search?q=that+article+about+AI+agents&limit=3" | jq
+curl -s -u "${KARAKEEP_SEMANTIC_USER}:${KARAKEEP_SEMANTIC_PASS}" "${KARAKEEP_SEMANTIC_URL}/search?q=that+article+about+AI+agents&limit=3" | jq
 ```
 
 ### Response format
@@ -55,10 +54,10 @@ curl -s -H "Authorization: Bearer ${KARAKEEP_SEMANTIC_API_KEY}" "${KARAKEEP_SEMA
 curl -s "${KARAKEEP_SEMANTIC_URL}/health" | jq
 
 # Stats
-curl -s -H "Authorization: Bearer ${KARAKEEP_SEMANTIC_API_KEY}" "${KARAKEEP_SEMANTIC_URL}/stats" | jq
+curl -s -u "${KARAKEEP_SEMANTIC_USER}:${KARAKEEP_SEMANTIC_PASS}" "${KARAKEEP_SEMANTIC_URL}/stats" | jq
 
 # Trigger manual sync
-curl -s -X POST -H "Authorization: Bearer ${KARAKEEP_SEMANTIC_API_KEY}" "${KARAKEEP_SEMANTIC_URL}/sync" | jq
+curl -s -X POST -u "${KARAKEEP_SEMANTIC_USER}:${KARAKEEP_SEMANTIC_PASS}" "${KARAKEEP_SEMANTIC_URL}/sync" | jq
 ```
 
 ## Tips
