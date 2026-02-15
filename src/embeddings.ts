@@ -14,7 +14,10 @@ class OpenAIEmbeddingProvider implements EmbeddingProvider {
   dimensions: number;
 
   constructor() {
-    this.client = new OpenAI({ apiKey: config.OPENAI_API_KEY });
+    this.client = new OpenAI({
+      apiKey: config.OPENAI_API_KEY,
+      baseURL: config.OPENAI_BASE_URL,
+    });
     this.model = config.EMBEDDING_MODEL;
     // text-embedding-3-small = 1536, text-embedding-3-large = 3072
     this.dimensions = this.model.includes("large") ? 3072 : 1536;
