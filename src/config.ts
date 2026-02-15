@@ -32,6 +32,9 @@ const envSchema = z.object({
   // Server
   PORT: z.coerce.number().default(3000),
   LOG_LEVEL: z.enum(["debug", "info", "warn", "error"]).default("info"),
+
+  // Authentication (optional - when set, all requests require Bearer token)
+  API_KEY: optionalString,
 });
 
 function validateConfig() {

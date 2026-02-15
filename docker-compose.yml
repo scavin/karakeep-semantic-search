@@ -13,6 +13,7 @@ services:
       - EMBEDDING_MODEL=${EMBEDDING_MODEL:-text-embedding-3-small}
       - SYNC_INTERVAL_MINUTES=${SYNC_INTERVAL_MINUTES:-5}
       - LOG_LEVEL=${LOG_LEVEL:-info}
+      - API_KEY=${API_KEY:-}
     ports:
       - "${PORT:-3001}:3000"
     volumes:

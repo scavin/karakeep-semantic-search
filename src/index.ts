@@ -6,6 +6,23 @@ import { syncAll, syncIncremental, syncBookmark, deleteBookmark } from "./sync.j
 
 const app = new Hono();
 
+// Bearer token authentication middleware
+if (config.API_KEY) {
+  app.use("*", async (c, next) => {
+    if (c.req.path === "/health") {
+      return next();
+    }
+
+    const auth = c.req.header("Authorization");
+    if (auth !== `Bearer ${config.API_KEY}`) {
+      return c.json({ error: "Unauthorized" }, 401);
+    }
+
+    return next();
+  });
+  logger.info("API key authentication enabled");
+}
+
 // Health check
 app.get("/health", async (c) => {
   try {
