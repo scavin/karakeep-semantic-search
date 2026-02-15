@@ -17,7 +17,7 @@ class OpenAIEmbeddingProvider implements EmbeddingProvider {
     this.client = new OpenAI({
       apiKey: config.OPENAI_API_KEY,
       baseURL: config.OPENAI_BASE_URL,
-      // Strip x-stainless-* telemetry headers that trigger WAF on third-party endpoints
+      // Strip OpenAI SDK headers that trigger WAF on third-party endpoints
       fetch: config.OPENAI_BASE_URL
         ? (url, init) => {
             const headers = new Headers(init?.headers as HeadersInit);
@@ -26,6 +26,7 @@ class OpenAIEmbeddingProvider implements EmbeddingProvider {
                 headers.delete(key);
               }
             }
+            headers.set("User-Agent", "node");
             return globalThis.fetch(url, { ...init, headers });
           }
         : undefined,
