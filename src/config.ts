@@ -1,14 +1,25 @@
 import { z } from "zod";
 
+// Treat empty strings as undefined for optional env vars
+const optionalString = z
+  .string()
+  .transform((v) => (v === "" ? undefined : v))
+  .pipe(z.string().optional());
+
+const optionalUrl = z
+  .string()
+  .transform((v) => (v === "" ? undefined : v))
+  .pipe(z.string().url().optional());
+
 const envSchema = z.object({
   // Karakeep
   KARAKEEP_URL: z.string().url(),
   KARAKEEP_API_KEY: z.string().min(1),
 
   // Embeddings - one of these required
-  OPENAI_API_KEY: z.string().optional(),
-  OPENAI_BASE_URL: z.string().url().optional(),
-  OLLAMA_URL: z.string().url().optional(),
+  OPENAI_API_KEY: optionalString,
+  OPENAI_BASE_URL: optionalUrl,
+  OLLAMA_URL: optionalUrl,
   EMBEDDING_MODEL: z.string().default("text-embedding-3-small"),
 
   // Qdrant
